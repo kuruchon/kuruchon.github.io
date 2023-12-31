@@ -17,7 +17,7 @@
      }
  
      $(document).ready(function(){
-       $.getJSON("https://script.google.com/macros/s/AKfycbzBH2FgdjSFQ7mkPLRHTQPIanV55YdHUFieoqFx8egO4DKOe79VlJBXi9cT2jDhbY2Qfg/exec",function(result){   // เปลี่ยน exec
+       $.getJSON("https://script.google.com/macros/s/AKfycbx8fyCmoZhAoYqjAtBaZ5obRy0rdp_jYA-LeUUWSnTrLWX-wU4jzxn4adPDvYE5tPmmAQ/exec",function(result){   // เปลี่ยน exec
          student = result.student;
         //console.log(pokenmons);
      for(var i =0;i < student.length; i++){
