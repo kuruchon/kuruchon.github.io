@@ -9,10 +9,10 @@
     $('#studentclass').html(student[i].classstudent);
     $('#studentclassteacher').html(student[i].classteacher);  
     $('#studentthailng').html(student[i].thailng);
-    $('#studentmaths').html(student[i].maths); 
-    $('#studentenglish').html(student[i].english);
-    $('#studentcomputer').html(student[i].computer);
-    $('#studentscience').html(student[i].science);
+    // $('#studentmaths').html(student[i].maths); 
+    // $('#studentenglish').html(student[i].english);
+    // $('#studentcomputer').html(student[i].computer);
+    // $('#studentscience').html(student[i].science);
     $('#studenttotal').html(student[i].total);
   
      }
