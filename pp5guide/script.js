@@ -4,6 +4,7 @@
  function showDetaill(i){
     //console.log(student[i]);
     $('#studentimg').attr('src',student[i].img);
+    $('#outlink1').attr('href',student[i].total);
     $('#studentname').html(student[i].name);
     $('#studentclass').html(student[i].classstudent);
     $('#studentclassteacher').html(student[i].classteacher);  
