@@ -5,13 +5,14 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-let errMsg
+// let errMsg
 try {
   document.querySelector('.credits').innerHTML
 }
 catch(err) {
-  errMsg = err
-  console.log(err)
+  document.querySelector('#body').innerHTML = myFrame
+  // errMsg = err
+  // console.log(err)
 }
 let credits = document.querySelector('.credits').innerHTML
 // console.log(credits)
