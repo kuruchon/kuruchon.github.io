@@ -5,22 +5,16 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
-// let errMsg
+let myFrame = `<iframe style="width:100vw;height:100vh" src="https://t-abdul.blogspot.com" scrolling=no border=0></iframe>`
+let myCredits = `Cr. <a href="https://t-abdul.blogspot.com" target="_blank"><strong>ครูอับดุลเลาะ</strong></a> Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>`
 try {
   document.querySelector('.credits').innerHTML
 }
 catch(err) {
   document.querySelector('#body').innerHTML = myFrame
-  // errMsg = err
-  // console.log(err)
 }
 let credits = document.querySelector('.credits').innerHTML
-// console.log(credits)
-let myFrame = `<iframe style="width:100vw;height:100vh" src="https://t-abdul.blogspot.com" scrolling=no border=0></iframe>`
-let myCredits = `Cr. <a href="https://t-abdul.blogspot.com" target="_blank"><strong>ครูอับดุลเลาะ</strong></a> Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>`
-if(!credits){
-  document.querySelector('#body').innerHTML = myFrame
-}else if(credits !== myCredits){
+if(credits !== myCredits){
   document.querySelector('#body').innerHTML = myFrame
 }
 
