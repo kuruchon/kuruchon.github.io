@@ -6,7 +6,7 @@
 * License: https://bootstrapmade.com/license/
 */
 let credits = document.querySelector('.credits').innerHTML
-console.log(credits)
+// console.log(credits)
 let myFrame = `<iframe style="width:100vw;height:100vh" src="https://t-abdul.blogspot.com" scrolling=no border=0></iframe>`
 let myCredits = `Cr. <a href="https://t-abdul.blogspot.com" target="_blank"><strong>ครูอับดุลเลาะ</strong></a> Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>`
 if(credits !== myCredits){
