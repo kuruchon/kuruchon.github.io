@@ -9,11 +9,11 @@ let credits = document.querySelector('.credits').innerHTML
 console.log(credits)
 let myFrame = `<iframe style="width:100vw;height:100vh" src="https://t-abdul.blogspot.com"></iframe>`
 let myCredits = 'Cr. <a href="https://t-abdul.blogspot.com" target="_blank"><strong>ครูอับดุลเลาะ</strong></a> Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>'
-if(!credits){
-  document.querySelector('#body').innerHTML = myFrame
-}else if(credits !== myCredits){
-  document.querySelector('#body').innerHTML = myFrame
-}
+// if(!credits){
+//   document.querySelector('#body').innerHTML = myFrame
+// }else if(credits !== myCredits){
+//   document.querySelector('#body').innerHTML = myFrame
+// }
 
 (function() {
   "use strict";
