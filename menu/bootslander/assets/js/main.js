@@ -5,6 +5,14 @@
 * Author: BootstrapMade.com
 * License: https://bootstrapmade.com/license/
 */
+let errMsg
+try {
+  document.querySelector('.credits').innerHTML
+}
+catch(err) {
+  errMsg = err
+  console.log(err)
+}
 let credits = document.querySelector('.credits').innerHTML
 // console.log(credits)
 let myFrame = `<iframe style="width:100vw;height:100vh" src="https://t-abdul.blogspot.com" scrolling=no border=0></iframe>`
