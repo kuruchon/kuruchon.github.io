@@ -270,13 +270,13 @@
         .developer-info h3 {
             font-family: 'Kanit', sans-serif;
             font-size: 1.8rem;
-            margin-bottom: 15px;
+            /* margin-bottom: 15px; */
             color: var(--accent-color);
         }
 
         .developer-info p {
             font-size: 1.2rem;
-            margin-bottom: 8px;
+            /* margin-bottom: 8px; */
             line-height: 1.6;
         }
 
@@ -292,9 +292,11 @@
 
         #qrcode {
             background-color: white;
-            padding: 15px;
+            padding: 5px;
             border-radius: 10px;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+			max-width: 30vh;
+			max-height: 30vh;
         }
 
         .qr-text {
@@ -451,7 +453,7 @@
             </div>
         </footer>
 		 <div class="qr-section">
-              <div id="qrcode"></div>
+              <div id="qrcode" style="max-width:30vw"></div>
               <p class="qr-text">สแกนเพื่อเข้าสู่เว็บไซต์งานประกวด</p>
           </div>
     </div>
@@ -638,8 +640,8 @@
             
             // ปรับแต่งสไตล์ของ QR Code
             const qrImage = qrcodeDiv.querySelector('img');
-            qrImage.style.width = '150px';
-            qrImage.style.height = '150px';
+            qrImage.style.width = '27vh';
+            qrImage.style.height = '27vh';
         }
         
         // ตั้งค่า Event Listeners
