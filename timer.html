@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>นาฬิกานับถอยหลังสำหรับงานประกวดลายผ้าบาติก</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary-color: #8B4513;
+            --secondary-color: #D2691E;
+            --accent-color: #FFD700;
+            --warning-color: #FF4500;
+            --dark-color: #2F4F4F;
+            --light-color: #F5F5DC;
+            --text-color: #333;
+            --white: #FFFFFF;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Sarabun', sans-serif;
+            background: linear-gradient(135deg, var(--dark-color) 0%, var(--primary-color) 100%);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            /* margin: 0 auto; */
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin-bottom: 5px;
+            border-bottom: 8px solid var(--accent-color);
+        }
+
+        h1 {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 700;
+            font-size: 3.5rem;
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .title-edit {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .title-input {
+            font-family: 'Kanit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            width: 80%;
+            padding: 10px 20px;
+            border: 3px solid var(--secondary-color);
+            border-radius: 10px;
+            background-color: var(--light-color);
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .title-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .edit-btn {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .edit-btn:hover {
+            background-color: var(--primary-color);
+            transform: rotate(15deg);
+        }
+
+        /* Main Timer Section */
+        .timer-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .timer-display {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 700;
+            font-size: 12rem;
+            color: var(--dark-color);
+            text-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.7);
+            border-radius: 20px;
+            min-width: 800px;
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .warning {
+            color: var(--warning-color);
+            animation: blink 1s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Controls */
+        .controls {
+            /* display: flex; */
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            /* margin-bottom: 30px; */
+            background-color: rgba(255, 255, 255, 0.95);
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+        }
+
+        .time-setter {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            padding: 15px;
+            background-color: var(--light-color);
+            border-radius: 10px;
+            min-width: 200px;
+        }
+
+        .time-setter label {
+            font-family: 'Kanit', sans-serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: var(--dark-color);
+        }
+
+        .time-input {
+            font-size: 1.8rem;
+            padding: 10px;
+            width: 100%;
+            text-align: center;
+            border: 3px solid var(--secondary-color);
+            border-radius: 10px;
+            font-family: 'Kanit', sans-serif;
+            background-color: white;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--dark-color);
+            transform: translateY(-5px);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--primary-color);
+            transform: translateY(-5px);
+        }
+
+        .btn-accent {
+            background-color: var(--accent-color);
+            color: var(--dark-color);
+        }
+
+        .btn-accent:hover {
+            background-color: #FFC400;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .developer-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .developer-info h3 {
+            font-family: 'Kanit', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .developer-info p {
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        .qr-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+			position: fixed;
+			bottom: 10px;
+			right: 30px;
+        }
+
+        #qrcode {
+            background-color: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .qr-text {
+            font-size: 0.7rem;
+			color: #fff;
+            text-align: center;
+            max-width: 200px;
+        }
+
+        /* Batik Pattern Decoration */
+        .batik-pattern {
+            position: absolute;
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .pattern-1 {
+            top: 20px;
+            left: 20px;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, var(--primary-color) 10%, transparent 20%);
+            background-size: 20px 20px;
+        }
+
+        .pattern-2 {
+            bottom: 20px;
+            right: 20px;
+            width: 200px;
+            height: 200px;
+            background: linear-gradient(45deg, transparent 45%, var(--accent-color) 45%, var(--accent-color) 55%, transparent 55%),
+                        linear-gradient(-45deg, transparent 45%, var(--accent-color) 45%, var(--accent-color) 55%, transparent 55%);
+            background-size: 40px 40px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .timer-display {
+                font-size: 9rem;
+                min-width: 600px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .title-input {
+                font-size: 1.8rem;
+            }
+            
+            .timer-display {
+                font-size: 6rem;
+                min-width: 400px;
+            }
+            
+            .controls {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .time-setter {
+                width: 100%;
+            }
+            
+            footer {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .timer-display {
+                font-size: 4rem;
+                min-width: 300px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .title-input {
+                font-size: 1.5rem;
+            }
+            
+            .btn {
+                padding: 12px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <!--<h1>นาฬิกานับถอยหลัง</h1>-->
+            <div class="title-edit">
+                <input type="text" class="title-input" value="การประกวดลายผ้าบาติก" id="eventTitle">
+                <button class="edit-btn" id="editTitleBtn" style="display:none">
+                    <i class="fas fa-edit"></i>
+                </button>
+				<button class="edit-btn" id="showControlBtn">
+                    <i class="fa-solid fa-gears"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="timer-container">
+            <div class="batik-pattern pattern-1"></div>
+            <div class="batik-pattern pattern-2"></div>
+            
+            <div class="timer-display" id="timerDisplay">
+                00:00:00
+            </div>
+            
+            <div class="controls" style="display:flex;">
+                <div class="time-setter">
+                    <label for="hours">ชั่วโมง</label>
+                    <input type="number" id="hours" class="time-input" min="0" max="99" value="0">
+                </div>
+                
+                <div class="time-setter">
+                    <label for="minutes">นาที</label>
+                    <input type="number" id="minutes" class="time-input" min="0" max="59" value="10">
+                </div>
+                
+                <div class="time-setter">
+                    <label for="seconds">วินาที</label>
+                    <input type="number" id="seconds" class="time-input" min="0" max="59" value="0">
+                </div>
+				
+				<br>
+                
+                <div class="buttons">
+                    <button class="btn btn-primary" id="startBtn">
+                        <i class="fas fa-play"></i> เริ่มนับถอยหลัง
+                    </button>
+                    <button class="btn btn-secondary" id="pauseBtn">
+                        <i class="fas fa-pause"></i> หยุดชั่วคราว
+                    </button>
+                    <button class="btn btn-accent" id="resetBtn">
+                        <i class="fas fa-redo"></i> รีเซ็ต
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <div class="developer-info">
+                <h3>พัฒนาโดย: นายอับดุลเลาะ ดอเลาะแม</h3>
+                <p>ครูผู้สอนอิสลามศึกษา รร.คุรุชนพัฒนา</p>
+                <p><strong>เว็บไซต์:</strong> https://kuruchon.github.io/batikcontest68</p>
+            </div>
+        </footer>
+		 <div class="qr-section">
+              <div id="qrcode"></div>
+              <p class="qr-text">สแกนเพื่อเข้าสู่เว็บไซต์งานประกวด</p>
+          </div>
+    </div>
+
+    <audio id="tickSound" preload="auto">
+        <source src="https://kuruchon.github.io/sound/beep.mp3" type="audio/mpeg">
+    </audio>
+    
+    <audio id="endSound" preload="auto">
+        <source src="https://kuruchon.github.io/sound/complete.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // ประกาศตัวแปร
+        let timerInterval;
+        let totalSeconds = 600; // 10 นาทีเป็นค่าเริ่มต้น
+        let isRunning = false;
+        let isPaused = false;
+        
+        // องค์ประกอบ DOM
+        const timerDisplay = document.getElementById('timerDisplay');
+        const hoursInput = document.getElementById('hours');
+        const minutesInput = document.getElementById('minutes');
+        const secondsInput = document.getElementById('seconds');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const resetBtn = document.getElementById('resetBtn');
+        const eventTitle = document.getElementById('eventTitle');
+        const editTitleBtn = document.getElementById('editTitleBtn');
+        const tickSound = document.getElementById('tickSound');
+        const endSound = document.getElementById('endSound');
+        const qrcodeDiv = document.getElementById('qrcode');
+        
+        // ฟังก์ชันเริ่มต้น
+        function init() {
+            updateDisplay();
+            setupEventListeners();
+            generateQRCode();
+            
+            // ตั้งค่าค่าเริ่มต้นให้กับ input
+            setInitialTime();
+        }
+        
+        // ตั้งค่าเวลาเริ่มต้น (10 นาที)
+        function setInitialTime() {
+            hoursInput.value = 0;
+            minutesInput.value = 10;
+            secondsInput.value = 0;
+        }
+        
+        // อัปเดตการแสดงผลนาฬิกา
+        function updateDisplay() {
+            const hours = Math.floor(totalSeconds / 3600);
+            const minutes = Math.floor((totalSeconds % 3600) / 60);
+            const seconds = totalSeconds % 60;
+            
+            timerDisplay.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // ตรวจสอบว่าเหลือเวลาน้อยกว่า 10 วินาทีหรือไม่
+            if (totalSeconds <= 10 && totalSeconds > 0) {
+                timerDisplay.classList.add('warning');
+                
+                // เล่นเสียงติ๊ดทุกวินาที
+                if (isRunning) {
+                    playTickSound();
+                }
+            } else {
+                timerDisplay.classList.remove('warning');
+            }
+            
+            // ถ้าหมดเวลา
+            if (totalSeconds <= 0 && isRunning) {
+                endTimer();
+            }
+        }
+        
+        // เริ่มนับถอยหลัง
+        function startTimer() {
+            if (isRunning) return;
+            
+            // รับค่าจาก input
+            const hours = parseInt(hoursInput.value) || 0;
+            const minutes = parseInt(minutesInput.value) || 0;
+            const seconds = parseInt(secondsInput.value) || 0;
+            
+            totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            
+            if (totalSeconds <= 0) {
+                alert('กรุณาตั้งค่าเวลามากกว่า 0 วินาที');
+                return;
+            }
+            
+            isRunning = true;
+            isPaused = false;
+            startBtn.disabled = true;
+            pauseBtn.disabled = false;
+            
+            timerInterval = setInterval(() => {
+                totalSeconds--;
+                updateDisplay();
+            }, 1000);
+        }
+        
+        // หยุดชั่วคราว
+        function pauseTimer() {
+            if (!isRunning) return;
+            
+            if (isPaused) {
+                // เริ่มใหม่
+                timerInterval = setInterval(() => {
+                    totalSeconds--;
+                    updateDisplay();
+                }, 1000);
+                isPaused = false;
+                pauseBtn.innerHTML = '<i class="fas fa-pause"></i> หยุดชั่วคราว';
+            } else {
+                // หยุดชั่วคราว
+                clearInterval(timerInterval);
+                isPaused = true;
+                pauseBtn.innerHTML = '<i class="fas fa-play"></i> ดำเนินการต่อ';
+            }
+        }
+        
+        // รีเซ็ต
+        function resetTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            isPaused = false;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            pauseBtn.innerHTML = '<i class="fas fa-pause"></i> หยุดชั่วคราว';
+            timerDisplay.classList.remove('warning');
+            
+            // ตั้งค่าเวลากลับไปเป็นค่าเริ่มต้นจาก input
+            const hours = parseInt(hoursInput.value) || 0;
+            const minutes = parseInt(minutesInput.value) || 0;
+            const seconds = parseInt(secondsInput.value) || 0;
+            
+            totalSeconds = hours * 3600 + minutes * 60 + seconds;
+            updateDisplay();
+        }
+        
+        // เมื่อหมดเวลา
+        function endTimer() {
+            clearInterval(timerInterval);
+            isRunning = false;
+            startBtn.disabled = false;
+            pauseBtn.disabled = true;
+            
+            // เล่นเสียงเมื่อหมดเวลา
+            playEndSound();
+            
+            // แสดงข้อความหมดเวลา
+            timerDisplay.textContent = "00:00:00";
+            timerDisplay.classList.add('warning');
+            
+            // แสดงการแจ้งเตือน
+            // alert("หมดเวลา! การประกวดลายผ้าบาติกได้สิ้นสุดลงแล้ว");
+			Swal.fire("หมดเวลา! การประกวดลายผ้าบาติกได้สิ้นสุดลงแล้ว");
+        }
+        
+        // เล่นเสียงติ๊ด
+        function playTickSound() {
+            // รีเซ็ตเสียงเพื่อให้เล่นซ้ำได้ทันที
+            tickSound.currentTime = 0;
+            tickSound.play().catch(e => console.log("ไม่สามารถเล่นเสียงได้: ", e));
+        }
+        
+        // เล่นเสียงเมื่อหมดเวลา
+        function playEndSound() {
+            endSound.currentTime = 0;
+            endSound.play().catch(e => console.log("ไม่สามารถเล่นเสียงได้: ", e));
+        }
+        
+        // สร้าง QR Code
+        function generateQRCode() {
+            const qr = qrcode(4, 'L');
+            qr.addData('https://kuruchon.github.io/batikcontest68');
+            qr.make();
+            
+            const qrImg = qr.createImgTag(8);
+            qrcodeDiv.innerHTML = qrImg;
+            
+            // ปรับแต่งสไตล์ของ QR Code
+            const qrImage = qrcodeDiv.querySelector('img');
+            qrImage.style.width = '150px';
+            qrImage.style.height = '150px';
+        }
+        
+        // ตั้งค่า Event Listeners
+        function setupEventListeners() {
+            startBtn.addEventListener('click', startTimer);
+            pauseBtn.addEventListener('click', pauseTimer);
+            resetBtn.addEventListener('click', resetTimer);
+            
+            // อนุญาตให้แก้ไขไตเติลได้
+            editTitleBtn.addEventListener('click', () => {
+                eventTitle.disabled = !eventTitle.disabled;
+                if (!eventTitle.disabled) {
+                    eventTitle.focus();
+                    eventTitle.select();
+                }
+            });
+            
+            // เมื่อกด Enter ในช่องไตเติล
+            eventTitle.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    eventTitle.disabled = true;
+                    editTitleBtn.focus();
+                }
+            });
+            
+            // จำกัดค่าที่ป้อนในช่องเวลา
+            [hoursInput, minutesInput, secondsInput].forEach(input => {
+                input.addEventListener('change', function() {
+                    let value = parseInt(this.value) || 0;
+                    
+                    if (this.id === 'hours' && value > 99) {
+                        this.value = 99;
+                    } else if ((this.id === 'minutes' || this.id === 'seconds') && value > 59) {
+                        this.value = 59;
+                    } else if (value < 0) {
+                        this.value = 0;
+                    }
+                    
+                    // อัปเดต totalSeconds เมื่อเปลี่ยนค่า
+                    if (!isRunning) {
+                        const hours = parseInt(hoursInput.value) || 0;
+                        const minutes = parseInt(minutesInput.value) || 0;
+                        const seconds = parseInt(secondsInput.value) || 0;
+                        
+                        totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                        updateDisplay();
+                    }
+                });
+                
+                input.addEventListener('input', function() {
+                    // จำกัดให้ป้อนได้เฉพาะตัวเลข
+                    this.value = this.value.replace(/[^0-9]/g, '');
+                });
+            });
+            
+            // ปุ่มลัดคีย์บอร์ด
+            document.addEventListener('keydown', (e) => {
+                // Spacebar เพื่อเริ่ม/หยุด
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (isRunning) {
+                        pauseTimer();
+                    } else {
+                        startTimer();
+                    }
+                }
+                
+                // R เพื่อรีเซ็ต
+                if (e.code === 'KeyR' && e.ctrlKey) {
+                    e.preventDefault();
+                    resetTimer();
+                }
+                
+                // E เพื่อแก้ไขไตเติล
+                if (e.code === 'KeyE' && e.ctrlKey) {
+                    e.preventDefault();
+                    eventTitle.disabled = false;
+                    eventTitle.focus();
+                    eventTitle.select();
+                }
+            });
+            
+            // อัปเดตเวลาเมื่อโหลดหน้าเว็บ
+            window.addEventListener('load', () => {
+                const hours = parseInt(hoursInput.value) || 0;
+                const minutes = parseInt(minutesInput.value) || 0;
+                const seconds = parseInt(secondsInput.value) || 0;
+                
+                totalSeconds = hours * 3600 + minutes * 60 + seconds;
+                updateDisplay();
+            });
+        }
+		
+		//แสดงซ่อนคอนโทรล
+		let showControlBtn = document.getElementById("showControlBtn");
+		let ctrlDiv = document.querySelector(".controls");
+		let ctrlStatus = "show";
+		
+		// อนุญาตให้แสดง-ซ่อนชุดคอนโทรล
+            showControlBtn.addEventListener('click', () => {
+                if(ctrlStatus == "show") {
+					ctrlDiv.style.display = "none";
+					ctrlStatus = "hide";
+				} else {
+					ctrlDiv.style.display = "flex";
+					ctrlStatus = "show";
+				}               
+            });
+		
+        
+        // เริ่มต้นแอปพลิเคชัน
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+	
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</body>
+</html>
